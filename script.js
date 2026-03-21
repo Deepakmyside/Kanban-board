@@ -30,11 +30,16 @@ if(localStorage.getItem("tasks")) {
            div.addEventListener("drag", (e) =>{
             dragElement=div;
            })
-        })
+          
 
-        const tasks =document.querySelectorAll(".task");
-        const count = document.querySelector(".right");
-        count.innerText = tasks.length;
+        })
+        
+           const tasks =column.querySelectorAll(".task");
+           const count = column.querySelector(".right");
+           count.innerText = tasks.length;
+
+         
+       
 
      }
 }
