@@ -2,8 +2,8 @@ const todo = document.querySelector('#todo');
 const progress = document.querySelector('#progress');
 const done = document.querySelector('#done');
 const tasks = document.querySelectorAll('.task');
-
-
+// const col = document.querySelector('.task-column')
+const columns = [ todo, progress, done];
  
 
 let dragElement = null;
@@ -38,9 +38,24 @@ function addDragEventsOnColumn(column) {
 
         column.classList.remove("hover-over");
 
+        updateCount()
+        
+
     })
 }
 // Modal logic 
+
+function updateCount(){
+    columns.forEach(col => {
+        const tasks = col.querySelectorAll(".task");
+        const countE1 =col.querySelector(".right");
+    
+        if(countE1) {
+            countE1.innerText= tasks.length
+        }
+    })
+}
+
 
 const modal= document.querySelector(".modal"); 
 const modalBg = document.querySelector(".modal .bg")
@@ -66,6 +81,8 @@ addTaskButton.addEventListener("click", () => {
         div.addEventListener("drag", (e) => {
             dragElement=div;
         })
+
+        updateCount()
         modal.classList.remove("active")
     
 })

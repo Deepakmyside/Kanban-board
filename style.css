@@ -60,6 +60,7 @@ body{
 
 main{
     height: 100%;
+    width: 100%;
     display: flex;
     flex-direction: column;
    
@@ -143,7 +144,7 @@ section .task-column .task button{
 
 .modal {
     height: 100vh;
-    width: 100vh;
+    width: 100vw;
     display: none;
     align-items: center;
     justify-content: center;
