@@ -60,7 +60,7 @@ body{
 
 main{
     height: 100%;
-    width: 100%;
+   
     display: flex;
     flex-direction: column;
    
@@ -153,9 +153,10 @@ section .task-column .task button{
     position: fixed;
   }
 
-  .modal.active{
+  .modal.active {
     display: flex;
   }
+  
 .modal .bg{
     height: 100%;
     width: 100%;
