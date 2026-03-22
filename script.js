@@ -23,8 +23,11 @@ let dragElement = null;
       div.addEventListener("drag", (e) => {
         dragElement= div;
       })
+      div.addEventListener("touchstart", (e) => {
+        dragElement=div;
+      })
     
-      const deleteButton =document.querySelector("button");
+      const deleteButton =div.querySelector("button");
       deleteButton.addEventListener("click", () => {
         div.remove();
         updateTaskCount();
@@ -77,7 +80,7 @@ const tasks = document.querySelectorAll('.task');
 
 tasks.forEach(task => {
     task.addEventListener("drag", (e) => {
-    // console.log("dragging", e);
+    console.log("dragging", e);
     dragElement = task;
     })
 }
@@ -104,13 +107,63 @@ function addDragEventsOnColumn(column) {
         column.classList.remove("hover-over");
 
         updateTaskCount();
-        
-        
-    
+   
 })
-
-
 }
+
+
+//      Mobile touch support logic
+
+document.addEventListener("touchmove", (e) => {
+    const touch = e.touches[0];
+
+    const element = document.elementFromPoint(
+        touch.clientX,
+        touch.clientY
+    );
+
+    const column = element?.closest(".task-column");
+
+    columns.forEach(col => 
+        col.classList.remove("hover-over"));
+
+        if(column) {
+            column.classList.add("hover-over");
+        }
+});
+
+// drop logic for mobile
+
+document.addEventListener("touchend", (e) => {
+    const touch = e.changedTouches[0];
+
+    const element = document.elementFromPoint(
+        touch.clientX,
+        touch.clientY
+    );
+
+    let column = element;
+
+    console.log("touched element", element);
+    while(column && !column.classList.contains("task-column")) {
+        column = column.parentElement;
+    }
+    
+    // column.forEach(col => 
+    //  col.classList.remove("hover-over"));
+    
+     if(column && dragElement) {
+        column.appendChild(dragElement);
+           column.classList.remove("hover-over");
+        updateTaskCount();
+
+     }
+
+     dragElement= null
+
+
+
+})
 
 addDragEventsOnColumn(todo);
 addDragEventsOnColumn(progress);
@@ -138,19 +191,12 @@ addTaskButton.addEventListener("click", () => {
     const taskTitle = document.querySelector("#task-title-input").value
     const taskDesc = document.querySelector("#task-desc-input").value
 
-    addTask(taskTitle, taskDesc, todo);   
-
+       addTask(taskTitle, taskDesc, todo);   
        updateTaskCount();
+       modal.classList.remove("active")
 
-        div.addEventListener("drag", (e) => {
-            dragElement=div;
-        })
-      
-
-      
-         
-
-        modal.classList.remove("active")
+       document.querySelector("#task-title-input").value="";
+       document.querySelector("#task-desc-input").value="";
     
 })
  

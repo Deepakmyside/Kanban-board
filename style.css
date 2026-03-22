@@ -98,6 +98,7 @@ section{
 
 section .task-column{
     background-color: var(--bg-button-color);
+    width: 100%;
     flex-grow:1 ;
     padding:  var(--space-sm) var(--space-md);
     display: flex;
